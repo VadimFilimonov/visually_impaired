@@ -1,0 +1,6 @@
+visually_impaired:
+  css:
+    theme:
+      css/visually_impaired.css: {}
+  js:
+    js/visually_impaired_go.js: {}

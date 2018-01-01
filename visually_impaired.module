@@ -1,0 +1,19 @@
+<?php
+use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
+use Drupal\Core\Access\AccessResult;
+
+
+function visually_impaired_page_attachments_alter(&$build){
+	$build['#attached']['library'][] = 'visually_impaired/visually_impaired';
+}
+
+function visually_impaired_theme() {
+  return [
+    'block--visually_impaired' => [
+      'template' => 'block--visually_impaired',
+      'variables' => ['size_label' => null, 'color_label' => null],
+    ],
+
+  ];
+}
