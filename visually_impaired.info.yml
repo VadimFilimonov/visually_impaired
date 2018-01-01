@@ -1,6 +1,6 @@
 name: 'Visually impaired'
 type: module
-description: 'JS скрипт. Версия для слабовидящих'
+description: 'Предназначен для реализации на сайте версии для слабовидящих'
 package: User interface
 version: '8.x-1.0'
 core: '8.x'
