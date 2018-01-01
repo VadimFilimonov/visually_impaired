@@ -1,0 +1,31 @@
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'visually_impairedSettings',
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {{ title_suffix }}
+    <div class="visually_impairedSettings__inner">
+        <div class="visually_impairedSettings__fsizes">
+            <div class="visually_impairedSettings__label">{{ size_label }}</div>
+            <div class="visually_impairedSettings__items">
+                <div class="visually_impairedSettings__fsize visually_impairedSettings__item -small">A</div>
+                <div class="visually_impairedSettings__fsize visually_impairedSettings__item -medium">A</div>
+                <div class="visually_impairedSettings__fsize visually_impairedSettings__item -large">A</div>
+            </div>
+        </div>
+        <div class="visually_impairedSettings__colors">
+            <div class="visually_impairedSettings__label">{{ color_label }}</div>
+            <div class="visually_impairedSettings__items">
+                <div class="visually_impairedSettings__color visually_impairedSettings__item -white">A</div>
+                <div class="visually_impairedSettings__color visually_impairedSettings__item -dark">A</div>
+                <div class="visually_impairedSettings__color visually_impairedSettings__item -blue">A</div>
+            </div>
+        </div>
+    </div>
+</div>
+
