@@ -1,0 +1,93 @@
+.visually_impairedSettings__inner {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+  @media (max-width: 1169px) {
+    .visually_impairedSettings__inner {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media (max-width: 767px) {
+    .visually_impairedSettings__inner {
+      padding-left: 10px;
+      padding-right: 10px; } }
+
+.visually_impairedSettings {
+  background-color: #efefef;
+  margin-bottom: 50px;
+  display: block;
+  color: #000; }
+  .visually_impairedSettings__inner {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+    @media (max-width: 479px) {
+      .visually_impairedSettings__inner {
+        display: block; } }
+  .visually_impairedSettings__fsizes {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-right: 40px; }
+    @media (max-width: 479px) {
+      .visually_impairedSettings__fsizes {
+        margin-bottom: 20px; } }
+  .visually_impairedSettings__colors {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+  .visually_impairedSettings__items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+  .visually_impairedSettings__item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+    line-height: 1;
+    width: 25px;
+    height: 27px;
+    border: 1px solid #9f9f9f;
+    background: #dadada;
+    margin-right: 5px; }
+    .visually_impairedSettings__item:last-child {
+      margin-right: 0; }
+  .visually_impairedSettings__label {
+    font-size: 1.3rem;
+    font-family: 'Helvetoca', sans-serif;
+    margin-right: 20px; }
+  .visually_impairedSettings__fsize.-small {
+    font-size: 1rem; }
+  .visually_impairedSettings__fsize.-medium {
+    font-size: 1.3rem; }
+  .visually_impairedSettings__fsize.-large {
+    font-size: 1.6rem; }
+  .visually_impairedSettings__color.-white {
+    background-color: #fff;
+    color: #000; }
+  .visually_impairedSettings__color.-dark {
+    background-color: #000;
+    color: #fff; }
+  .visually_impairedSettings__color.-blue {
+    background-color: #193d86;
+    color: #fff; }
+
+/*# sourceMappingURL=../maps/visually_impairedversion.css.map */
