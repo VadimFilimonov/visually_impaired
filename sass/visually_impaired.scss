@@ -55,13 +55,18 @@
     }
     &__fsizes {
         display: flex;
-        margin-right: 40px;
         @include media(msp) {
             margin-bottom: 20px;
         }
     }
     &__colors {
         display: flex;
+    }
+    &__images {
+        display: flex;
+    }
+    &__group:not(:last-child) {
+        margin-right: 40px;
     }
     &__items {
         display: flex;
@@ -109,6 +114,24 @@
         &.-blue {
             background-color: #193d86;
             color: #fff;
+        }
+    }
+    &__image {
+        color: transparent;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        &.-all {
+            background-image: url('../images/all.jpg');
+        }
+        &.-bw {
+            background-image: url('../images/bw.jpg');
+        }
+        &.-alt {
+            background-image: url('../images/alt.jpg');
+        }
+        &.-none {
+            background-image: url('../images/none.jpg');
         }
     }
 }

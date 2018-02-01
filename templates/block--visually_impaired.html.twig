@@ -10,7 +10,7 @@
     {{ title_prefix }}
     {{ title_suffix }}
     <div class="visually_impairedSettings__inner">
-        <div class="visually_impairedSettings__fsizes">
+        <div class="visually_impairedSettings__fsizes visually_impairedSettings__group">
             <div class="visually_impairedSettings__label">{{ size_label }}</div>
             <div class="visually_impairedSettings__items">
                 <div class="visually_impairedSettings__fsize visually_impairedSettings__item -small">A</div>
@@ -18,7 +18,7 @@
                 <div class="visually_impairedSettings__fsize visually_impairedSettings__item -large">A</div>
             </div>
         </div>
-        <div class="visually_impairedSettings__colors">
+        <div class="visually_impairedSettings__colors visually_impairedSettings__group">
             <div class="visually_impairedSettings__label">{{ color_label }}</div>
             <div class="visually_impairedSettings__items">
                 <div class="visually_impairedSettings__color visually_impairedSettings__item -white">A</div>
@@ -26,6 +26,15 @@
                 <div class="visually_impairedSettings__color visually_impairedSettings__item -blue">A</div>
             </div>
         </div>
+        <div class="visually_impairedSettings__images visually_impairedSettings__group">
+            <div class="visually_impairedSettings__label">{{ images_label }}</div>
+            <div class="visually_impairedSettings__items">
+                <div class="visually_impairedSettings__image visually_impairedSettings__item -all">All</div>
+                <div class="visually_impairedSettings__image visually_impairedSettings__item -bw">BW</div>
+                <div class="visually_impairedSettings__image visually_impairedSettings__item -alt">ALT</div>
+                <div class="visually_impairedSettings__image visually_impairedSettings__item -none">NONE</div>
+            </div>
+        </div>  
     </div>
 </div>
 

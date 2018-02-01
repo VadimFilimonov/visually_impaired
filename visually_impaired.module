@@ -12,7 +12,7 @@ function visually_impaired_theme() {
   return [
     'block--visually_impaired' => [
       'template' => 'block--visually_impaired',
-      'variables' => ['size_label' => null, 'color_label' => null],
+      'variables' => ['size_label' => null, 'color_label' => null, 'images_label' => null],
     ],
 
   ];

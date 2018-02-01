@@ -26,6 +26,7 @@ class SettingsBlock extends BlockBase {
     return array(
       'size_label' => 'Размер шрифта:',
       'color_label' => 'Цветовая схема:',
+      'images_label' => 'Изображения:',
     );
   }
 
@@ -47,7 +48,11 @@ class SettingsBlock extends BlockBase {
       '#title' => t('Метка - цветовая схема'),
       '#default_value' => $config['color_label'],
     );
-
+    $form['images_label'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Метка - изображения'),
+      '#default_value' => $config['images_label'],
+    );
     return $form;
   }
   /**
@@ -58,6 +63,8 @@ class SettingsBlock extends BlockBase {
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['size_label'] = $form_state->getValue('size_label');
     $this->configuration['color_label'] = $form_state->getValue('color_label');
+    $this->configuration['images_label'] = $form_state->getValue('images_label');
+
   }
 
   /**
@@ -69,6 +76,8 @@ class SettingsBlock extends BlockBase {
         '#theme' => 'block--visually_impaired',
         '#size_label' => $this->configuration['size_label'],
         '#color_label' => $this->configuration['color_label'],
+        '#images_label' => $this->configuration['images_label'],
+
     );
   }
 

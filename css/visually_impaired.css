@@ -33,8 +33,7 @@
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
-    margin-right: 40px; }
+    display: flex; }
     @media (max-width: 479px) {
       .visually_impairedSettings__fsizes {
         margin-bottom: 20px; } }
@@ -43,6 +42,13 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex; }
+  .visually_impairedSettings__images {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+  .visually_impairedSettings__group:not(:last-child) {
+    margin-right: 40px; }
   .visually_impairedSettings__items {
     display: -webkit-box;
     display: -webkit-flex;
@@ -89,5 +95,19 @@
   .visually_impairedSettings__color.-blue {
     background-color: #193d86;
     color: #fff; }
+  .visually_impairedSettings__image {
+    color: transparent;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat; }
+    .visually_impairedSettings__image.-all {
+      background-image: url("../images/all.jpg"); }
+    .visually_impairedSettings__image.-bw {
+      background-image: url("../images/bw.jpg"); }
+    .visually_impairedSettings__image.-alt {
+      background-image: url("../images/alt.jpg"); }
+    .visually_impairedSettings__image.-none {
+      background-image: url("../images/none.jpg"); }
 
-/*# sourceMappingURL=../maps/visually_impairedversion.css.map */
+/*# sourceMappingURL=../maps/visually_impaired.css.map */
