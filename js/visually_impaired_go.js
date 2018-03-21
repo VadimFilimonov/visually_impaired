@@ -5,11 +5,18 @@
 	Drupal.behaviors.visually_impaired = {
 	  attach: function (context) {
 
-	  	// Тег, к которому будут добавляться атрибуты. В большинстве случаев это body или html.
-	  	var attributesKeeper = 'body';
+
+		//=====================================
+		//=Переменные
+		//=====================================
+
+		// Тег, к которому будут добавляться атрибуты. В большинстве случаев это body или html.
+	  	var attributesKeeper = 'html';
 
 	  	// Кнопка, которая переключает версию сайта
 	  	var buttonSwitcher = '.js-visually-impaired';
+
+
 	  	// Кнопки для настройки версии сайта для слабовидящих
 	  	// Размеры
 	  	// Все кнопки
@@ -20,6 +27,7 @@
 	  	var size_medium = '.js-btn-medium';
 	  	// Большой шрифт
 	  	var size_large = '.js-btn-large';
+
 	  	// Цветовая палитра
 	  	// Все кнопки
 	  	var color_common = '.js-btn-color';
@@ -29,6 +37,7 @@
 	  	var color_whiteOnBlack = '.js-btn-dark';
 	  	// Белый на синем
 	  	var color_whiteOnBlue = '.js-btn-blue';
+
 	  	// Изображения
 	  	// Все кнопки
 	  	var images_common = '.js-btn-image';
@@ -41,6 +50,7 @@
 	  	// Убрать полностью изображения
 	  	var images_none = '.js-btn-none';
 
+
 	  	// Заносим в переменную значение версии сайта с localstorage
 	  	var siteversion = localStorage.getItem('version');
 	  	// Заносим в переменную значение размера шрифта с localstorage
@@ -50,28 +60,47 @@
 	  	// Заносим в переменную значение параметра изображения с localstorage
 	  	var siteimages = localStorage.getItem('visually_impairedimages');
 
+		//=====================================
+		//=End of Переменные
+		//=====================================
+
+
 	  	// Если его нет, то
 	  	if (siteversion === null){
 	  		// Устанавливаем его по умолчанию в норму
 	  		localStorage.setItem('version', 'normal');
 	  	}
+
 	  	// Если значение "Норма"
 	  	if (siteversion === 'normal'){
 	  		// Задаем соответствующие атрибуты
-	  		// Для body
-	  		$(attributesKeeper).attr('data-version', 'normal');
-	  		// И для кнопки-переключателя
+	  		// Для кнопки-переключателя
 	  		$(buttonSwitcher).attr('data-buttonto', 'visually_impaired');
 	  	}
 	  	// Если значение "Для слабовидящих"
 	  	else if (siteversion === 'visually_impaired'){
 	  		// Задаем соответствующие атрибуты
-	  		// Для body
-	  		$(attributesKeeper).attr('data-version', 'visually_impaired');
-	  		// И для кнопки-переключателя
+	  		// Для кнопки-переключателя
 	  		$(buttonSwitcher).attr('data-buttonto', 'normal');
 	  	}
+	  	// Если сейчас "Обычная версия сайта"
+	  	if ($(attributesKeeper).attr('data-version') === "normal"){
+	  		// Удаляем атрибут размера шрифта
+	  		$(attributesKeeper).removeAttr("data-fontsize");
+	  		// Атрибут цветовой гаммы
+	  		$(attributesKeeper).removeAttr("data-color");
+	  		// И атрибут изображений
+	  		$(attributesKeeper).removeAttr("data-images");
 
+	  	}
+	  	// end of "Обычная версия сайта"
+
+
+
+	  	//=====================================
+	  	//=Проверка в Local Storage
+	  	//=====================================
+	  	
 	  	// Проверяем размер шрифта с localstorage
 	  	if (sitefontsize === 'litle'){
 	  		$(attributesKeeper).attr('data-fontsize', 'litle');
@@ -118,29 +147,55 @@
 	  		$(images_none).addClass('active');
 	  	}
 
+	  	//=====================================
+	  	//=End of Проверка в Local Storage
+	  	//=====================================
+
 	  	// Если мы сейчас находимся на версии сайта для слабовидящих
 	  	// То меняем текст кнопки на "Обычная версия сайта"
 	  	$(buttonSwitcher + '[data-buttonto="normal"]').text('Обычная версия сайта');
+
 
 	  	// Если была нажата кнопка-переключатель
 	  	$(buttonSwitcher).click(function(){
 	  		// Определяем
 	  		// Если она должна вести на "Обычную версию сайта"
 	  		if ($(this).attr('data-buttonto') === 'normal'){
-	  			// То заносим соответствующую переменную в local storage
+	  		    //Добавляем значение версии в куки
+	  		    document.cookie = "version=normal; path=/; http_only=true";
+	  			// Добавляем атрибут версии для слабовидящих в HTML
+	  			$('html').attr('data-version', 'normal');
+	  			// Добавляем атрибут, указывающий на то, что кнопка должна переключать на версию сайта для слабовидящих
+	  			$(buttonSwitcher).attr('data-buttonto', 'visually_impaired');
+	  			$(buttonSwitcher + '[data-buttonto="visually_impaired"]').text('Версия для слабовидящих');
+
+	  			// Заносим соответствующую переменную в local storage
 	  			localStorage.setItem('version', 'normal');
-	  			// И перезагружаем страницу
-	  			location.reload();
+	  			$('html').removeAttr('data-fontsize');
+	  			$('html').removeAttr('data-color');
+	  			$('html').removeAttr('data-images');
+	  			
 	  		}
 	  		// Если же на "Версию для слабовидящих"
-	  		else if ($(this).attr('data-buttonto') === 'visually_impaired'){
+	  		else {
+	  		    //Добавляем значение версии в куки
+	  		    document.cookie = "version=visually_impaired; path=/; http_only=true";	  		    
+	  			// Добавляем атрибут версии для слабовидящих в HTML
+	  			$('html').attr('data-version', 'visually_impaired');
+	  			// Добавляем атрибут, указывающий на то, что кнопка должна переключать на обычную версию сайта
+	  			$(buttonSwitcher).attr('data-buttonto', 'normal');
+	  			$(buttonSwitcher + '[data-buttonto="normal"]').text('Обычная версия сайта');
+
 	  			// То заносим аналогичную переменную в local storage
 	  			localStorage.setItem('version', 'visually_impaired');
-	  			// И тоже перезагружаем страницу
-	  			location.reload();
 	  		}
 	  	});
 
+
+	  	//=====================================
+	  	//=Кнопки - Настройки версии для слабовидящих
+	  	//=====================================
+	  	
 	  	// Кнопки-Настройки размера шрифта
 	  	// Мелкий шрифт
 	  	$(size_litle).click(function(){
@@ -164,7 +219,7 @@
 	  		$(this).addClass('active');
 	  	});
 
-	  	// Кнопки-Настройки цветовой палитры
+	  	// КНОПКИ - Настройки цветовой палитры
 	  	// Черный на белом
 	  	$(color_blackOnWhite).click(function(){
 	  		localStorage.setItem('visually_impairedcolor', 'blackonwhite');
@@ -187,7 +242,7 @@
 	  		$(this).addClass('active');
 	  	});
 
-	  	// Кнопки-Настройки изображений
+	  	// КНОПКИ - Настройки изображений
 	  	// Все изображения
 	  	$(images_all).click(function(){
 	  		localStorage.setItem('visually_impairedimages', 'all');
@@ -199,6 +254,8 @@
 	  		    $('span.alttext').remove();
 	  		}
 	  	});
+	  	// end of Все изображения 
+
 	  	// Черно-белые изображения
 	  	$(images_bw).click(function(){
 	  		localStorage.setItem('visually_impairedimages', 'bw');
@@ -210,18 +267,30 @@
 	  		    $('span.alttext').remove();
 	  		}
 	  	});
-	  	// Алтернативный текст изображений
+	  	// end of Черно-белые изображения
+
+	  	// Альтернативный текст изображений
 	  	$(images_alt).click(function(){
 	  		localStorage.setItem('visually_impairedimages', 'alt');
 	  		$(attributesKeeper).attr('data-images', 'alt');
 	  		$(images_common).removeClass('active');
 	  		$(this).addClass('active');
-	  		$("img").wrap("<div class='visible_alt'></div>");
+	  		if ($('img').closest('div').hasClass('visible_alt') === false){
+	  			$("img").wrap("<div class='visible_alt'></div>");
+	  		}
 	  		$('.visible_alt').each(function () {
+  		    	$('.alttext' ,this).remove();
 	  		    var alt_text = $('img', this).attr('alt');
 	  		    $(this).append('<span class="alttext">'+alt_text+'</span>');
 	  		});
 	  	});
+	  	// end of Альтернативный текст изображений
+	  	
+	  	// default calling
+	  	if (siteimages === 'alt'){
+			$(images_alt).click();
+	  	}
+
 	  	// Отключение изображений
 	  	$(images_none).click(function(){
 	  		localStorage.setItem('visually_impairedimages', 'none');
@@ -233,17 +302,13 @@
 	  		    $('span.alttext').remove();
 	  		}
 	  	});	
+	  	// end of Отключение изображений
 
-	  	// Если сейчас "Обычная версия сайта"
-	  	if ($(attributesKeeper).attr('data-version') === "normal"){
-	  		// Удаляем атрибут размера шрифта
-	  		$(attributesKeeper).removeAttr("data-fontsize");
-	  		// Атрибут цветовой гаммы
-	  		$(attributesKeeper).removeAttr("data-color");
-	  		// И атрибут изображений
-	  		$(attributesKeeper).removeAttr("data-images");
+	  	//=====================================
+	  	//=End of Кнопки - Настройки версии для слабовидящих
+	  	//=====================================
 
-	  	}
+
 	  }
 	}
     
