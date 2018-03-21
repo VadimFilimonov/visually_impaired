@@ -13,33 +13,33 @@
 	  	// Кнопки для настройки версии сайта для слабовидящих
 	  	// Размеры
 	  	// Все кнопки
-	  	var size_common = '.visually_impairedSettings .visually_impairedSettings__fsizes .visually_impairedSettings__item';
+	  	var size_common = '.js-btn-size';
 	  	// Малый шрифт
-	  	var size_litle = '.visually_impairedSettings .visually_impairedSettings__fsizes .visually_impairedSettings__item.-small';
+	  	var size_litle = '.js-btn-small';
 	  	// Средний шрифт
-	  	var size_medium = '.visually_impairedSettings .visually_impairedSettings__fsizes .visually_impairedSettings__item.-medium';
+	  	var size_medium = '.js-btn-medium';
 	  	// Большой шрифт
-	  	var size_large = '.visually_impairedSettings .visually_impairedSettings__fsizes .visually_impairedSettings__item.-large';
+	  	var size_large = '.js-btn-large';
 	  	// Цветовая палитра
 	  	// Все кнопки
-	  	var color_common = '.visually_impairedSettings .visually_impairedSettings__colors .visually_impairedSettings__item';
+	  	var color_common = '.js-btn-color';
 	  	// Черный на белом
-	  	var color_blackOnWhite = '.visually_impairedSettings .visually_impairedSettings__colors .visually_impairedSettings__item.-white';
+	  	var color_blackOnWhite = '.js-btn-white';
 	  	// Белый на черном
-	  	var color_whiteOnBlack = '.visually_impairedSettings .visually_impairedSettings__colors .visually_impairedSettings__item.-dark';
+	  	var color_whiteOnBlack = '.js-btn-dark';
 	  	// Белый на синем
-	  	var color_whiteOnBlue = '.visually_impairedSettings .visually_impairedSettings__colors .visually_impairedSettings__item.-blue';
+	  	var color_whiteOnBlue = '.js-btn-blue';
 	  	// Изображения
 	  	// Все кнопки
-	  	var images_common = '.visually_impairedSettings__image';
+	  	var images_common = '.js-btn-image';
 	  	// Показать все изображения
-	  	var images_all = '.visually_impairedSettings__image.-all';
+	  	var images_all = '.js-btn-all';
 	  	// Показать изображения в черно-белом варианте
-	  	var images_bw = '.visually_impairedSettings__image.-bw';
+	  	var images_bw = '.js-btn-bw';
 	  	// Убрать изображения, оставить только альт.
-	  	var images_alt = '.visually_impairedSettings__image.-alt';
+	  	var images_alt = '.js-btn-alt';
 	  	// Убрать полностью изображения
-	  	var images_none = '.visually_impairedSettings__image.-none';
+	  	var images_none = '.js-btn-none';
 
 	  	// Заносим в переменную значение версии сайта с localstorage
 	  	var siteversion = localStorage.getItem('version');
