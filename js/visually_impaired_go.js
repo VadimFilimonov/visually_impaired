@@ -1,316 +1,203 @@
-(function ($, Drupal, drupalSettings) {
+(function ($, Drupal) {
+  'use strict';
 
-    'use strict';
-	
-	Drupal.behaviors.visually_impaired = {
-	  attach: function (context) {
+  Drupal.behaviors.visually_impaired = {
+    attach: function () {
+      console.error('This module is outdated')
+      console.error('Use visually_impaired_module instead');
+      console.error('https://www.drupal.org/project/visually_impaired_module');
 
+      const siteversion = localStorage.getItem('version');
+      const sitefontsize = localStorage.getItem('visually_impairedfontsize');
+      const sitecolor = localStorage.getItem('visually_impairedcolor');
+      const siteimages = localStorage.getItem('visually_impairedimages');
 
-		//=====================================
-		//=Переменные
-		//=====================================
+      if (siteversion === null) {
+        localStorage.setItem('version', 'normal');
+      }
 
-		// Тег, к которому будут добавляться атрибуты. В большинстве случаев это body или html.
-	  	var attributesKeeper = 'html';
+      if (siteversion === 'normal') {
+        $('.js-visually-impaired').attr('data-buttonto', 'visually_impaired');
+      } else if (siteversion === 'visually_impaired') {
+        $('.js-visually-impaired').attr('data-buttonto', 'normal');
+      }
 
-	  	// Кнопка, которая переключает версию сайта
-	  	var buttonSwitcher = '.js-visually-impaired';
+      if ($('html').attr('data-version') === 'normal') {
+        $('html').removeAttr('data-fontsize');
+        $('html').removeAttr('data-color');
+        $('html').removeAttr('data-images');
+      }
 
+      if (sitefontsize === 'litle') {
+        $('html').attr('data-fontsize', 'litle');
+        $('.js-btn-small').addClass('active');
+      }
 
-	  	// Кнопки для настройки версии сайта для слабовидящих
-	  	// Размеры
-	  	// Все кнопки
-	  	var size_common = '.js-btn-size';
-	  	// Малый шрифт
-	  	var size_litle = '.js-btn-small';
-	  	// Средний шрифт
-	  	var size_medium = '.js-btn-medium';
-	  	// Большой шрифт
-	  	var size_large = '.js-btn-large';
+      if (sitefontsize === 'medium') {
+        $('html').attr('data-fontsize', 'medium');
+        $('.js-btn-medium').addClass('active');
+      }
 
-	  	// Цветовая палитра
-	  	// Все кнопки
-	  	var color_common = '.js-btn-color';
-	  	// Черный на белом
-	  	var color_blackOnWhite = '.js-btn-white';
-	  	// Белый на черном
-	  	var color_whiteOnBlack = '.js-btn-dark';
-	  	// Белый на синем
-	  	var color_whiteOnBlue = '.js-btn-blue';
+      if (sitefontsize === 'large') {
+        $('html').attr('data-fontsize', 'large');
+        $('.js-btn-large').addClass('active');
+      }
 
-	  	// Изображения
-	  	// Все кнопки
-	  	var images_common = '.js-btn-image';
-	  	// Показать все изображения
-	  	var images_all = '.js-btn-all';
-	  	// Показать изображения в черно-белом варианте
-	  	var images_bw = '.js-btn-bw';
-	  	// Убрать изображения, оставить только альт.
-	  	var images_alt = '.js-btn-alt';
-	  	// Убрать полностью изображения
-	  	var images_none = '.js-btn-none';
+      if (sitecolor === 'blackonwhite') {
+        $('html').attr('data-color', 'blackonwhite');
+      }
 
+      if (sitecolor === 'whiteonblack') {
+        $('html').attr('data-color', 'whiteonblack');
+        $('.js-btn-dark').addClass('active');
+      }
 
-	  	// Заносим в переменную значение версии сайта с localstorage
-	  	var siteversion = localStorage.getItem('version');
-	  	// Заносим в переменную значение размера шрифта с localstorage
-	  	var sitefontsize = localStorage.getItem('visually_impairedfontsize');
-	  	// Заносим в переменную значение цветовой палитры с localstorage
-	  	var sitecolor = localStorage.getItem('visually_impairedcolor');
-	  	// Заносим в переменную значение параметра изображения с localstorage
-	  	var siteimages = localStorage.getItem('visually_impairedimages');
+      if (sitecolor === 'whiteonblue') {
+        $('html').attr('data-color', 'whiteonblue');
+        $('.js-btn-blue').addClass('active');
+      }
 
-		//=====================================
-		//=End of Переменные
-		//=====================================
+      if (siteimages === 'all') {
+        $('html').attr('data-images', 'all');
+        $('.js-btn-all').addClass('active');
+      }
 
+      if (siteimages === 'bw') {
+        $('html').attr('data-images', 'bw');
+        $('.js-btn-bw').addClass('active');
+      }
 
-	  	// Если его нет, то
-	  	if (siteversion === null){
-	  		// Устанавливаем его по умолчанию в норму
-	  		localStorage.setItem('version', 'normal');
-	  	}
+      if (siteimages === 'alt') {
+        $('html').attr('data-images', 'alt');
+        $('.js-btn-alt').addClass('active');
+      }
 
-	  	// Если значение "Норма"
-	  	if (siteversion === 'normal'){
-	  		// Задаем соответствующие атрибуты
-	  		// Для кнопки-переключателя
-	  		$(buttonSwitcher).attr('data-buttonto', 'visually_impaired');
-	  	}
-	  	// Если значение "Для слабовидящих"
-	  	else if (siteversion === 'visually_impaired'){
-	  		// Задаем соответствующие атрибуты
-	  		// Для кнопки-переключателя
-	  		$(buttonSwitcher).attr('data-buttonto', 'normal');
-	  	}
-	  	// Если сейчас "Обычная версия сайта"
-	  	if ($(attributesKeeper).attr('data-version') === "normal"){
-	  		// Удаляем атрибут размера шрифта
-	  		$(attributesKeeper).removeAttr("data-fontsize");
-	  		// Атрибут цветовой гаммы
-	  		$(attributesKeeper).removeAttr("data-color");
-	  		// И атрибут изображений
-	  		$(attributesKeeper).removeAttr("data-images");
+      if (siteimages === 'none') {
+        $('html').attr('data-images', 'none');
+        $('.js-btn-none').addClass('active');
+      }
 
-	  	}
-	  	// end of "Обычная версия сайта"
+      $('.js-visually-impaired' + '[data-buttonto="normal"]').text(
+        'Обычная версия сайта'
+      );
 
+      $('.js-visually-impaired').click(function () {
+        if ($(this).attr('data-buttonto') === 'normal') {
+          document.cookie = 'version=normal; path=/; http_only=true';
+          $('html').attr('data-version', 'normal');
+          $('.js-visually-impaired').attr('data-buttonto', 'visually_impaired');
+          $('.js-visually-impaired' + '[data-buttonto="visually_impaired"]').text(
+            'Версия для слабовидящих'
+          );
+          localStorage.setItem('version', 'normal');
+          $('html').removeAttr('data-fontsize');
+          $('html').removeAttr('data-color');
+          $('html').removeAttr('data-images');
+        } else {
+          document.cookie = 'version=visually_impaired; path=/; http_only=true';
+          $('html').attr('data-version', 'visually_impaired');
+          $('.js-visually-impaired').attr('data-buttonto', 'normal');
+          $('.js-visually-impaired' + '[data-buttonto="normal"]').text(
+            'Обычная версия сайта'
+          );
+          localStorage.setItem('version', 'visually_impaired');
+        }
+      });
 
+      $('.js-btn-small').click(function () {
+        localStorage.setItem('visually_impairedfontsize', 'litle');
+        $('html').attr('data-fontsize', 'litle');
+        $('.js-btn-size').removeClass('active');
+        $(this).addClass('active');
+      });
 
-	  	//=====================================
-	  	//=Проверка в Local Storage
-	  	//=====================================
-	  	
-	  	// Проверяем размер шрифта с localstorage
-	  	if (sitefontsize === 'litle'){
-	  		$(attributesKeeper).attr('data-fontsize', 'litle');
-	  		$(size_litle).addClass('active');
-	  	}
-	  	if (sitefontsize === 'medium'){
-	  		$(attributesKeeper).attr('data-fontsize', 'medium');
-	  		$(size_medium).addClass('active');
-	  	}
-	  	if (sitefontsize === 'large'){
-	  		$(attributesKeeper).attr('data-fontsize', 'large');
-	  		$(size_large).addClass('active');
-	  	}
+      $('.js-btn-medium').click(function () {
+        localStorage.setItem('visually_impairedfontsize', 'medium');
+        $('html').attr('data-fontsize', 'medium');
+        $('.js-btn-size').removeClass('active');
+        $(this).addClass('active');
+      });
 
-	  	// Проверяем цветовую палитру с localstorage
-	  	if (sitecolor === 'blackonwhite'){
-	  		$(attributesKeeper).attr('data-color', 'blackonwhite');
-	  		$(color_blackOnWhite).addClass('active');
-	  	}
-	  	if (sitecolor === 'whiteonblack'){
-	  		$(attributesKeeper).attr('data-color', 'whiteonblack');
-	  		$(color_whiteOnBlack).addClass('active');
-	  	}
-	  	if (sitecolor === 'whiteonblue'){
-	  		$(attributesKeeper).attr('data-color', 'whiteonblue');
-	  		$(color_whiteOnBlue).addClass('active');
-	  	}
+      $('.js-btn-large').click(function () {
+        localStorage.setItem('visually_impairedfontsize', 'large');
+        $('html').attr('data-fontsize', 'large');
+        $('.js-btn-size').removeClass('active');
+        $(this).addClass('active');
+      });
 
-	  	// Проверяем параметр изображения с localstorage
-	  	if (siteimages === 'all'){
-	  		$(attributesKeeper).attr('data-images', 'all');
-	  		$(images_all).addClass('active');
-	  	}
-	  	if (siteimages === 'bw'){
-	  		$(attributesKeeper).attr('data-images', 'bw');
-	  		$(images_bw).addClass('active');
-	  	}
-	  	if (siteimages === 'alt'){
-	  		$(attributesKeeper).attr('data-images', 'alt');
-	  		$(images_alt).addClass('active');
-	  	}
-	  	if (siteimages === 'none'){
-	  		$(attributesKeeper).attr('data-images', 'none');
-	  		$(images_none).addClass('active');
-	  	}
+      $('.js-btn-white').click(function() {
+        localStorage.setItem('visually_impairedcolor', 'blackonwhite');
+        $('html').attr('data-color', 'blackonwhite');
+        $('.js-btn-color').removeClass('active');
+        $(this).addClass('active');
+      });
 
-	  	//=====================================
-	  	//=End of Проверка в Local Storage
-	  	//=====================================
+      $('.js-btn-dark').click(function () {
+        localStorage.setItem('visually_impairedcolor', 'whiteonblack');
+        $('html').attr('data-color', 'whiteonblack');
+        $('.js-btn-color').removeClass('active');
+        $(this).addClass('active');
+      });
 
-	  	// Если мы сейчас находимся на версии сайта для слабовидящих
-	  	// То меняем текст кнопки на "Обычная версия сайта"
-	  	$(buttonSwitcher + '[data-buttonto="normal"]').text('Обычная версия сайта');
+      $('.js-btn-blue').click(function () {
+        localStorage.setItem('visually_impairedcolor', 'whiteonblue');
+        $('html').attr('data-color', 'whiteonblue');
+        $('.js-btn-color').removeClass('active');
+        $(this).addClass('active');
+      });
 
+      $('.js-btn-all').click(function () {
+        localStorage.setItem('visually_impairedimages', 'all');
+        $('html').attr('data-images', 'all');
+        $('.js-btn-image').removeClass('active');
+        $(this).addClass('active');
+        if ($('.visible_alt').html()) {
+          $('img').unwrap();
+          $('span.alttext').remove();
+        }
+      });
 
-	  	// Если была нажата кнопка-переключатель
-	  	$(buttonSwitcher).click(function(){
-	  		// Определяем
-	  		// Если она должна вести на "Обычную версию сайта"
-	  		if ($(this).attr('data-buttonto') === 'normal'){
-	  		    //Добавляем значение версии в куки
-	  		    document.cookie = "version=normal; path=/; http_only=true";
-	  			// Добавляем атрибут версии для слабовидящих в HTML
-	  			$('html').attr('data-version', 'normal');
-	  			// Добавляем атрибут, указывающий на то, что кнопка должна переключать на версию сайта для слабовидящих
-	  			$(buttonSwitcher).attr('data-buttonto', 'visually_impaired');
-	  			$(buttonSwitcher + '[data-buttonto="visually_impaired"]').text('Версия для слабовидящих');
+      $('.js-btn-bw').click(function () {
+        localStorage.setItem('visually_impairedimages', 'bw');
+        $('html').attr('data-images', 'bw');
+        $('.js-btn-image').removeClass('active');
+        $(this).addClass('active');
+        if ($('.visible_alt').html()) {
+          $('img').unwrap();
+          $('span.alttext').remove();
+        }
+      });
 
-	  			// Заносим соответствующую переменную в local storage
-	  			localStorage.setItem('version', 'normal');
-	  			$('html').removeAttr('data-fontsize');
-	  			$('html').removeAttr('data-color');
-	  			$('html').removeAttr('data-images');
-	  			
-	  		}
-	  		// Если же на "Версию для слабовидящих"
-	  		else {
-	  		    //Добавляем значение версии в куки
-	  		    document.cookie = "version=visually_impaired; path=/; http_only=true";	  		    
-	  			// Добавляем атрибут версии для слабовидящих в HTML
-	  			$('html').attr('data-version', 'visually_impaired');
-	  			// Добавляем атрибут, указывающий на то, что кнопка должна переключать на обычную версию сайта
-	  			$(buttonSwitcher).attr('data-buttonto', 'normal');
-	  			$(buttonSwitcher + '[data-buttonto="normal"]').text('Обычная версия сайта');
+      $('.js-btn-alt').click(function () {
+        localStorage.setItem('visually_impairedimages', 'alt');
+        $('html').attr('data-images', 'alt');
+        $('.js-btn-image').removeClass('active');
+        $(this).addClass('active');
+        if ($('img').closest('div').hasClass('visible_alt') === false) {
+          $('img').wrap('<div class="visible_alt"></div>');
+        }
+        $('.visible_alt').each(function () {
+          $('.alttext', this).remove();
+          var alt_text = $('img', this).attr('alt');
+          $(this).append('<span class="alttext">' + alt_text + '</span>');
+        });
+      });
 
-	  			// То заносим аналогичную переменную в local storage
-	  			localStorage.setItem('version', 'visually_impaired');
-	  		}
-	  	});
+      if (siteimages === 'alt') {
+        $('.js-btn-alt').click();
+      }
 
+      $('.js-btn-none').click(function () {
+        localStorage.setItem('visually_impairedimages', 'none');
+        $('html').attr('data-images', 'none');
+        $('.js-btn-image').removeClass('active');
+        $(this).addClass('active');
+        if ($('.visible_alt').html()) {
+          $('img').unwrap();
+          $('span.alttext').remove();
+        }
+      });
 
-	  	//=====================================
-	  	//=Кнопки - Настройки версии для слабовидящих
-	  	//=====================================
-	  	
-	  	// Кнопки-Настройки размера шрифта
-	  	// Мелкий шрифт
-	  	$(size_litle).click(function(){
-	  		localStorage.setItem('visually_impairedfontsize', 'litle');
-	  		$(attributesKeeper).attr('data-fontsize', 'litle');
-	  		$(size_common).removeClass('active');
-	  		$(this).addClass('active');
-	  	});
-	  	// Средний шрифт
-	  	$(size_medium).click(function(){
-	  		localStorage.setItem('visually_impairedfontsize', 'medium');
-	  		$(attributesKeeper).attr('data-fontsize', 'medium');
-	  		$(size_common).removeClass('active');
-	  		$(this).addClass('active');
-	  	});
-	  	// Большой шрифт
-	  	$(size_large).click(function(){
-	  		localStorage.setItem('visually_impairedfontsize', 'large');
-	  		$(attributesKeeper).attr('data-fontsize', 'large');
-	  		$(size_common).removeClass('active');
-	  		$(this).addClass('active');
-	  	});
-
-	  	// КНОПКИ - Настройки цветовой палитры
-	  	// Черный на белом
-	  	$(color_blackOnWhite).click(function(){
-	  		localStorage.setItem('visually_impairedcolor', 'blackonwhite');
-	  		$(attributesKeeper).attr('data-color', 'blackonwhite');
-	  		$(color_common).removeClass('active');
-	  		$(this).addClass('active');
-	  	});
-	  	// Белый на черном
-	  	$(color_whiteOnBlack).click(function(){
-	  		localStorage.setItem('visually_impairedcolor', 'whiteonblack');
-	  		$(attributesKeeper).attr('data-color', 'whiteonblack');
-	  		$(color_common).removeClass('active');
-	  		$(this).addClass('active');
-	  	});
-	  	// Белый на синем
-	  	$(color_whiteOnBlue).click(function(){
-	  		localStorage.setItem('visually_impairedcolor', 'whiteonblue');
-	  		$(attributesKeeper).attr('data-color', 'whiteonblue');
-	  		$(color_common).removeClass('active');
-	  		$(this).addClass('active');
-	  	});
-
-	  	// КНОПКИ - Настройки изображений
-	  	// Все изображения
-	  	$(images_all).click(function(){
-	  		localStorage.setItem('visually_impairedimages', 'all');
-	  		$(attributesKeeper).attr('data-images', 'all');
-	  		$(images_common).removeClass('active');
-	  		$(this).addClass('active');
-	  		if ($('.visible_alt').html()){
-	  		    $("img").unwrap();
-	  		    $('span.alttext').remove();
-	  		}
-	  	});
-	  	// end of Все изображения 
-
-	  	// Черно-белые изображения
-	  	$(images_bw).click(function(){
-	  		localStorage.setItem('visually_impairedimages', 'bw');
-	  		$(attributesKeeper).attr('data-images', 'bw');
-	  		$(images_common).removeClass('active');
-	  		$(this).addClass('active');
-	  		if ($('.visible_alt').html()){
-	  		    $("img").unwrap();
-	  		    $('span.alttext').remove();
-	  		}
-	  	});
-	  	// end of Черно-белые изображения
-
-	  	// Альтернативный текст изображений
-	  	$(images_alt).click(function(){
-	  		localStorage.setItem('visually_impairedimages', 'alt');
-	  		$(attributesKeeper).attr('data-images', 'alt');
-	  		$(images_common).removeClass('active');
-	  		$(this).addClass('active');
-	  		if ($('img').closest('div').hasClass('visible_alt') === false){
-	  			$("img").wrap("<div class='visible_alt'></div>");
-	  		}
-	  		$('.visible_alt').each(function () {
-  		    	$('.alttext' ,this).remove();
-	  		    var alt_text = $('img', this).attr('alt');
-	  		    $(this).append('<span class="alttext">'+alt_text+'</span>');
-	  		});
-	  	});
-	  	// end of Альтернативный текст изображений
-	  	
-	  	// default calling
-	  	if (siteimages === 'alt'){
-			$(images_alt).click();
-	  	}
-
-	  	// Отключение изображений
-	  	$(images_none).click(function(){
-	  		localStorage.setItem('visually_impairedimages', 'none');
-	  		$(attributesKeeper).attr('data-images', 'none');
-	  		$(images_common).removeClass('active');
-	  		$(this).addClass('active');
-	  		if ($('.visible_alt').html()){
-	  		    $("img").unwrap();
-	  		    $('span.alttext').remove();
-	  		}
-	  	});	
-	  	// end of Отключение изображений
-
-	  	//=====================================
-	  	//=End of Кнопки - Настройки версии для слабовидящих
-	  	//=====================================
-
-
-	  }
-	}
-    
-
-})(jQuery, Drupal, drupalSettings);
+    },
+  };
+})(jQuery, Drupal);

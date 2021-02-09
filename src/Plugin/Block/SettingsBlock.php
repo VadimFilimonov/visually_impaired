@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 
 
 /**
- * Provides a 'Hello' Block.
+ * Provides a 'SettingsBlock' Block.
  *
  * @Block(
  *   id = "visually_impaired",
@@ -18,8 +18,6 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class SettingsBlock extends BlockBase {
   /**
-   * Добавляем наши конфиги по умолчанию.
-   *
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
@@ -31,12 +29,9 @@ class SettingsBlock extends BlockBase {
   }
 
   public function blockForm($form, FormStateInterface $form_state) {
-    // Получаем оригинальную форму для блока.
     $form = parent::blockForm($form, $form_state);
-    // Получаем конфиги для данного блока.
     $config = $this->getConfiguration();
 
-    // Добавляем поле для ввода сообщения.
     $form['size_label'] = array(
       '#type' => 'textfield',
       '#title' => t('Метка - размеры шрифтов'),
@@ -56,15 +51,12 @@ class SettingsBlock extends BlockBase {
     return $form;
   }
   /**
-   * В субмите мы лишь сохраняем наши данные.
-   *
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['size_label'] = $form_state->getValue('size_label');
     $this->configuration['color_label'] = $form_state->getValue('color_label');
     $this->configuration['images_label'] = $form_state->getValue('images_label');
-
   }
 
   /**
@@ -77,8 +69,6 @@ class SettingsBlock extends BlockBase {
         '#size_label' => $this->configuration['size_label'],
         '#color_label' => $this->configuration['color_label'],
         '#images_label' => $this->configuration['images_label'],
-
     );
   }
-
 }

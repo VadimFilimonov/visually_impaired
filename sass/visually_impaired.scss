@@ -1,137 +1,172 @@
-
-// Для адаптивности
 @mixin media($break-point) {
-    $mt: "(min-width: 1170px)";
-    $mtl: "(max-width: 1169px)";
-    $mtp: "(max-width: 979px)";
-    $msl: "(max-width: 767px)";
-    $msp: "(max-width: 479px)";
-    @if $break-point == md {
-        @media #{$md} { @content; }
+  $mt: "(min-width: 1170px)";
+  $mtl: "(max-width: 1169px)";
+  $mtp: "(max-width: 979px)";
+  $msl: "(max-width: 767px)";
+  $msp: "(max-width: 479px)";
+
+  @if $break-point == md {
+    @media #{$md} {
+      @content;
     }
-    @if $break-point == mtl {
-        @media #{$mtl} { @content; }
+  }
+
+  @if $break-point == mtl {
+    @media #{$mtl} {
+      @content;
     }
-    @if $break-point == mtp {
-        @media #{$mtp} { @content; }
+  }
+
+  @if $break-point == mtp {
+    @media #{$mtp} {
+      @content;
     }
-    @if $break-point == msl {
-        @media #{$msl} { @content; }
+  }
+
+  @if $break-point == msl {
+    @media #{$msl} {
+      @content;
     }
-    @if $break-point == msp {
-        @media #{$msp} { @content; }
+  }
+
+  @if $break-point == msp {
+    @media #{$msp} {
+      @content;
     }
+  }
 }
-// сетка
+
 %layout {
-    max-width: 1170px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    @include media(mtl) {
-        width: 100%;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    @include media(msl) {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+
+  @include media(mtl) {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include media(msl) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
-// блок с настройками
+
 .visually_impairedSettings {
-    background-color: #efefef;
-    margin-bottom: 50px;
-    display: block;
-    color: #000;
-    &__inner {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        display: flex;
-        @extend %layout;
-        @include media(msp) {
-            display: block;
-        }
+  background-color: #efefef;
+  margin-bottom: 50px;
+  display: block;
+  color: #000;
+
+  &__inner {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    @extend %layout;
+
+    @include media(msp) {
+      display: block;
     }
-    &__fsizes {
-        display: flex;
-        @include media(msp) {
-            margin-bottom: 20px;
-        }
+  }
+
+  &__fsizes {
+    display: flex;
+
+    @include media(msp) {
+      margin-bottom: 20px;
     }
-    &__colors {
-        display: flex;
+  }
+
+  &__colors {
+    display: flex;
+  }
+
+  &__images {
+    display: flex;
+  }
+
+  &__group:not(:last-child) {
+    margin-right: 40px;
+  }
+
+  &__items {
+    display: flex;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    line-height: 1;
+    width: 25px;
+    height: 27px;
+    border: 1px solid #9f9f9f;
+    background: #dadada;
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 0;
     }
-    &__images {
-        display: flex;
+  }
+
+  &__label {
+    font-size: 1.3rem;
+    font-family: "Helvetoca", sans-serif;
+    margin-right: 20px;
+  }
+
+  &__fsize {
+    &.-small {
+      font-size: 1rem;
     }
-    &__group:not(:last-child) {
-        margin-right: 40px;
+    &.-medium {
+      font-size: 1.3rem;
     }
-    &__items {
-        display: flex;
+    &.-large {
+      font-size: 1.6rem;
     }
-    &__item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        line-height: 1;
-        width: 25px;
-        height: 27px;
-        border: 1px solid #9f9f9f;
-        background: #dadada;
-        margin-right: 5px;
-        &:last-child {
-            margin-right: 0;
-        }
+  }
+
+  &__color {
+    &.-white {
+      background-color: #fff;
+      color: #000;
     }
-    &__label {
-        font-size: 1.3rem;
-        font-family: 'Helvetoca', sans-serif;
-        margin-right: 20px;
+
+    &.-dark {
+      background-color: #000;
+      color: #fff;
     }
-    &__fsize {
-        &.-small {
-            font-size: 1rem;
-        }
-        &.-medium {
-            font-size: 1.3rem;
-        }
-        &.-large {
-            font-size: 1.6rem;
-        }
+
+    &.-blue {
+      background-color: #193d86;
+      color: #fff;
     }
-    &__color {
-        &.-white {
-            background-color: #fff;
-            color: #000;
-        }
-        &.-dark {
-            background-color: #000;
-            color: #fff;
-        }
-        &.-blue {
-            background-color: #193d86;
-            color: #fff;
-        }
+  }
+
+  &__image {
+    color: transparent;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    &.-all {
+      background-image: url("../images/all.jpg");
     }
-    &__image {
-        color: transparent;
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        &.-all {
-            background-image: url('../images/all.jpg');
-        }
-        &.-bw {
-            background-image: url('../images/bw.jpg');
-        }
-        &.-alt {
-            background-image: url('../images/alt.jpg');
-        }
-        &.-none {
-            background-image: url('../images/none.jpg');
-        }
+
+    &.-bw {
+      background-image: url("../images/bw.jpg");
     }
+
+    &.-alt {
+      background-image: url("../images/alt.jpg");
+    }
+
+    &.-none {
+      background-image: url("../images/none.jpg");
+    }
+  }
 }
